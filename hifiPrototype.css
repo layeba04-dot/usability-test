@@ -6,5 +6,31 @@
     --dark-green: #60774C;
     --white: #FFFFFF;
     --black: #000000;
-    --dark-grey: #4d4d4d;
+    --grey: #4d4d4d;
+}
+
+{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--white);
+    color: var(--grey);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+/* --- main title --- */
+h1 {
+    margin-bottom: 8px;
+    color: var(--rose);
+    font-family: 'Arial Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 1px;
 }
