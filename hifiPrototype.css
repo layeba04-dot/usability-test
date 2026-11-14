@@ -2,6 +2,7 @@
 :root {
     --rose: #C0737A;
     --light-rose: #E8C6C9;
+    --pale-rose: #efeaeb;
     --leafy-green: #90A76A;
     --dark-green: #60774C;
     --white: #FFFFFF;
@@ -9,13 +10,14 @@
     --grey: #4d4d4d;
 }
 
-{
+*{
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    background-color: var(--white);
+    padding: 30px;
+    background-color: var(--pale-rose);
     color: var(--grey);
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -26,11 +28,140 @@ h1, h2, h3 {
     margin-top: 0;
 }
 
-/* --- main title --- */
+/* --- Title Bubble --- */
+.title-bubble {
+    background-color: var(--light-rose);
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 20px;
+    padding: 20px 50px;
+    border-radius: 75px;
+    text-align: center;
+}
+
+/* --- Title Text --- */
 h1 {
     margin-bottom: 8px;
-    color: var(--rose);
+    color: var(--dark-green);
     font-family: 'Arial Black', sans-serif;
     font-size: clamp(2rem, 5vw, 3rem);
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
+
+.title-bubble p {
+    margin: 0;
+    color: var(--rose);
+}
+
+/* --- Navigation --- */
+
+/* navigation list */
+nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+/* navigation bubble style */
+nav a {
+    display: block;
+    background-color: var(--leafy-green);
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 22px;
+    transition: background-color 0.3s ease;
+}
+
+/* navigation bubble hover effect */
+nav a:hover {
+    background-color: var(--dark-green);
+}
+
+/* --- Main Content Bubble --- */
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px;
+
+    background-color: var(--light-rose);
+    border-radius: 90px;
+}
+
+/* left side of main */
+.hero-description {
+    flex: 1;
+}
+
+/*"welcome back"*/
+.eyebrow {
+    color: var(--grey);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/*left header*/
+.hero-description h2 {
+    color: var(--dark-green);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    margin: 10px 0;
+}
+
+/* right side of main */
+.hero-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.feature-link {
+    background-color: var(--leafy-green);
+    padding: 20px;
+    border-radius: 40px;
+    text-align: center;
+}
+
+.feature-link p {
+    margin-bottom: 0;
+    color: var(--white);
+}
+
+/* feature buttons */
+.button {
+    display: block;
+    width: 95%;
+    margin: 0 auto;
+    
+    background-color: var(--dark-green);
+    text-align: center;
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--light-rose);
+    color: var(--dark-green);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    margin-top: 50px;
+    color: var(--dark-green);
+}
+
