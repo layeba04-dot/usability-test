@@ -1,1 +1,134 @@
 <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Studious Tracker 2.0</title>
+        <link rel="stylesheet" href="hifiPrototype.css">
+        <script src="studyTracker.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="title-bubble">
+                <h1>Studious Tracker 2.0</h1>
+                <p>Your personal study companion</p>
+            </div>
+
+            <nav aria-label="Main Navigation">
+                <ul> 
+                    <li><a href="hifiPrototype.html" >Home</a></li>
+                    <li><a href="deadlines.html">Deadlines</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="studyTracker.html" aria-current="page">Study Tracker</a></li>
+                    <li><a href="progressReport.html">Progress Report</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="tracker-page">
+                <div class="tracker-heading">
+                    <h2>My Study Trackers</h2>
+                    <p>Create a tracker to monitor your study sessions and build consistent study habits.</p>
+                </div>
+
+                <div class="create-tracker">
+                    <h3>Create a New Tracker</h3>
+
+                    <form id="tracker-form">
+                        <div class="form-group">
+                            <label for="tracker-name">Tracker Name</label>
+                            <input
+                                type="text"
+                                id="tracker-name"
+                                name="tracker-name"
+                                placeholder="e.g. Solo Study Sessions"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timer-type">Timer Type</label>
+                            <select id="timer-type" name ="timer-type" required>
+                                <option value="">Choose a timer type</option>
+                                <option value="stopwatch">Stopwatch</option>
+                                <option value="countdown">Countdown Timer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timer-duration">Study duration (minutes)</label>
+                            <input
+                                type="number"
+                                id="timer-duration"
+                                name="timer-duration"
+                                placeholder="e.g. 25"
+                                min="1"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="create-tracker-button">Create Tracker</button>
+                    </form>
+                </div>
+
+                <section class="tracker-list">
+                    <div class="tracker-list-heading">
+                        <h3>Your Trackers</h3>
+                    </div>
+
+                    <div id="trackers-container">
+                        <!-- Trackers will be dynamically added here -->
+                        <!-- Example of a tracker card -->
+                        <article class="tracker-card">
+                            <div class="tracker-card-heading">
+                                <h4>Solo Study Sessions</h4>
+                                <p>Stopwatch</p>
+                            </div>
+
+                            <div class="timer-display">
+                                <p>00:00:00</p>
+                            </div>
+
+                            <div class="timer-controls">
+                                <button type="button" class="timer-button">Start</button>
+                                <button type="button" class="timer-button">End Session</button>
+                            </div>
+
+                            <div class="session-history">
+                                <h5>Recent Sessions</h5>
+                                <ul>
+                                    <li>
+                                        <span>Nov 17, 2026</span>
+                                        <span>45 minutes</span>
+                                    </li>
+
+                                    <li>
+                                        <span>Nov 16, 2026</span>
+                                        <span>1 hour 20 minutes</span>
+                                    </li>
+
+                                    <li>
+                                        <span>Nov 15, 2026</span>
+                                        <span>30 minutes</span>
+                                    </li>
+                                </ul>
+
+                                <button type="button" class="view-sessions">View All Sessions</button>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                Created by Studious 5 &copy; 2026 Studious Tracker 2.0. All rights reserved.
+            </p>
+        </footer>
+        
+    </body>
+</html>
