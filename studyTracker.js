@@ -34,6 +34,41 @@ trackerForm.addEventListener("submit", function(event) {
     trackerForm.reset();
 });
 
+timerTypeInput.addEventListener("change", function() {
+    if (timerTypeInput.value === "stopwatch") {
+        timerDurationInput.disabled = true;
+        timerDurationInput.value = "";
+    } else {
+        timerDurationInput.disabled = false;
+    }
+});
+
+
+
+function playCompleteSound() {
+    const audioContext = new AudioContext();
+
+    const oscillator = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+
+    oscillator.frequency.value = 800;
+    volume.gain.value = 0.2;
+
+    oscillator.start();
+
+    oscillator.stop(audioContext.currentTime + 0.5);
+
+    return new Promise(function(resolve) {
+        oscillator.onended = function() { //let's us know when beep finished playing
+            audioContext.close();
+            resolve();
+        };
+    });
+}
+
 function displayTracker(tracker) {
 
     const trackerCard = document.createElement("div");
@@ -47,10 +82,21 @@ function displayTracker(tracker) {
     trackerType.textContent = tracker.type === "stopwatch" ? "Stopwatch" : "Countdown Timer";
 
     const timerDisplay = document.createElement("h3");
-    timerDisplay.textContent = "00:00:00";
     timerDisplay.classList.add("timer-display");
+    if (tracker.type === "countdown") {
+        const totalSeconds = tracker.duration * 60;
 
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
 
+        timerDisplay.textContent =
+            String(hours).padStart(2, "0") + ":" +
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+    } else {
+        timerDisplay.textContent = "00:00:00";
+    }
 
     const startButton = document.createElement("button");
     startButton.textContent = "Start";
@@ -59,6 +105,20 @@ function displayTracker(tracker) {
     let timerInterval = null;
     let startTime = null;
 
+    function completeCountdown() {
+        const confirmed = confirm("Your study session is complete! Would you like to log this session?");
+
+        if (confirmed) {
+            const session = {
+                duration: tracker.duration * 60,
+                date: new Date()
+            };
+
+            tracker.sessions.push(session);
+            displaySession(session, sessionList);
+        }
+    }
+
     startButton.addEventListener("click", function() {
         //can't start another interval when one's already running
         if (timerInterval !== null) {
@@ -66,16 +126,37 @@ function displayTracker(tracker) {
         }
         
         startTime = Date.now();
+        const startingDuration = tracker.duration * 60 * 1000; //converts minutes into milliseconds
 
         timerInterval = setInterval(function() {
             const currentTime = Date.now();
             const elapsedTime = currentTime - startTime;
 
-            const totalSeconds = Math.floor(elapsedTime / 1000);
+            let totalSeconds;
+
+            if (tracker.type === "stopwatch") {
+                totalSeconds = Math.floor(elapsedTime / 1000);
+            } else {
+                const remainingTime = startingDuration - elapsedTime;
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+
+                    totalSeconds = 0;
+
+                    playCompleteSound().then(function() {
+                        completeCountdown();
+                    });
+
+                } else {
+                    totalSeconds = Math.ceil(remainingTime / 1000);
+                }
+            }
 
             const hours = Math.floor(totalSeconds / 3600);
             const minutes = Math.floor((totalSeconds%3600)/60);
             const seconds = totalSeconds % 60;
+
             timerDisplay.textContent = 
                                 String(hours).padStart(2, "0") + ":" +
                                 String(minutes).padStart(2, "0") + ":" +
@@ -116,6 +197,21 @@ function displayTracker(tracker) {
         }
 
         timerInterval = null;
+
+        if (tracker.type === "stopwatch") {
+            timerDisplay.textContent = "00:00:00";
+        } else {
+            const totalSeconds = tracker.duration * 60;
+
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            timerDisplay.textContent =
+                String(hours).padStart(2, "0") + ":" +
+                String(minutes).padStart(2, "0") + ":" +
+                String(seconds).padStart(2, "0");
+        }
     });
 
     const sessionHistory = document.createElement("div");
@@ -134,7 +230,21 @@ function displayTracker(tracker) {
         sessionEntry.classList.add("session-entry");
 
         const sessionDuration = document.createElement("p");
-        sessionDuration.textContent = session.duration + " seconds";
+        const hours = Math.floor(session.duration / 3600);
+        const minutes = Math.floor((session.duration % 3600) / 60);
+        const seconds = session.duration % 60;
+
+        if (hours > 0) {
+    sessionDuration.textContent = hours + (hours === 1 ? " hour" : " hours");
+
+    if (minutes > 0) {
+        sessionDuration.textContent += ", " + minutes + (minutes === 1 ? " minute" : " minutes");
+    }
+    } else if (minutes > 0) {
+        sessionDuration.textContent = minutes + (minutes === 1 ? " minute" : " minutes");
+    } else {
+        sessionDuration.textContent = "Less than a minute";
+    }
 
         const sessionDate = document.createElement("p");
         sessionDate.textContent = session.date.toLocaleDateString("en-GB", {day: "numeric", month: "long", year: "numeric"});
