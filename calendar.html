@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar | Studious Tracker 2.0</title>
+    <link rel="stylesheet" href="hifiPrototype.css">
+    <link rel="stylesheet" href="calendar.css">
+    <script src="calendar.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="title-bubble">
+            <h1>Studious Tracker 2.0</h1>
+            <p>Your personal study companion</p>
+        </div>
+        <nav aria-label="Main Navigation">
+            <ul>
+                <li><a href="hifiPrototype.html">Home</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html" aria-current="page">Calendar</a></li>
+                <li><a href="studyTracker.html">Study Tracker</a></li>
+                <li><a href="progressReport.html">Progress Report</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="calendar-layout">
+        <section class="calendar-panel" aria-labelledby="calendar-title">
+            <div class="calendar-heading">
+                <div>
+                    <p class="eyebrow">PLAN YOUR MONTH</p>
+                    <h2 id="calendar-title">Assignment Calendar</h2>
+                </div>
+                <button type="button" id="today-button" class="secondary-button">Today</button>
+            </div>
+            <div class="month-controls">
+                <button type="button" id="previous-month" aria-label="Previous month">&#10094;</button>
+                <h3 id="month-label" aria-live="polite"></h3>
+                <button type="button" id="next-month" aria-label="Next month">&#10095;</button>
+            </div>
+            <div class="weekday-grid" aria-hidden="true">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div id="calendar-grid" class="calendar-grid" aria-label="Monthly calendar"></div>
+            <div class="calendar-legend">
+                <span><i class="legend-dot not-started"></i>Not Started</span>
+                <span><i class="legend-dot in-progress"></i>In Progress</span>
+                <span><i class="legend-dot completed"></i>Completed</span>
+            </div>
+        </section>
+
+        <aside class="calendar-sidebar">
+            <section class="side-panel" aria-labelledby="selected-date-title">
+                <h2 id="selected-date-title">Assignments for <span id="selected-date-label"></span></h2>
+                <div id="selected-assignments" aria-live="polite"></div>
+            </section>
+            <section class="side-panel" aria-labelledby="add-assignment-title">
+                <h2 id="add-assignment-title">Add an Assignment</h2>
+                <form id="assignment-form">
+                    <label for="assignment-name">Assignment name</label>
+                    <input id="assignment-name" name="name" type="text" placeholder="e.g. ITEC 3020 Midterm" required maxlength="100">
+
+                    <label for="assignment-course">Course</label>
+                    <input id="assignment-course" name="course" type="text" placeholder="e.g. ITEC 3020" required maxlength="60">
+
+                    <label for="assignment-date">Due date</label>
+                    <input id="assignment-date" name="date" type="date" required>
+
+                    <label for="assignment-status">Status</label>
+                    <select id="assignment-status" name="status">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+
+                    <button class="add-button" type="submit">+ Add Assignment</button>
+                </form>
+            </section>
+        </aside>
+    </main>
+    <footer><p>Created by Studious 5 &copy; 2026 Studious Tracker 2.0. All rights reserved.</p></footer>
+</body>
+</html>

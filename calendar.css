@@ -1,0 +1,45 @@
+/* Calendar-specific styles. The shared colours and header come from hifiPrototype.css. */
+.calendar-layout { max-width: 1250px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(290px, 1fr); gap: 22px; align-items: start; }
+.calendar-panel, .side-panel { background: var(--white); border-radius: 28px; padding: 24px; box-shadow: 0 4px 16px rgba(58,58,58,.07); }
+.calendar-panel { min-width: 0; }
+.calendar-sidebar { display: grid; gap: 22px; }
+.calendar-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.calendar-heading h2, .side-panel h2 { color: var(--dark-green); margin-bottom: 12px; }
+.calendar-heading .eyebrow { font-size: .75rem; color: var(--rose); margin-bottom: 4px; }
+.month-controls { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 18px 0; }
+.month-controls h3 { margin: 0; color: var(--dark-green); text-align: center; }
+.month-controls button, .secondary-button { border: 0; border-radius: 14px; padding: 9px 15px; cursor: pointer; background: var(--light-rose); color: var(--dark-green); font-weight: bold; }
+.month-controls button:hover, .secondary-button:hover { background: var(--leafy-green); color: white; }
+.weekday-grid, .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+.weekday-grid { margin-bottom: 7px; text-align: center; color: var(--dark-green); font-weight: bold; font-size: .85rem; }
+.calendar-day { min-width: 0; min-height: 94px; padding: 8px 5px; border: 1px solid #e6dcde; border-radius: 10px; background: #fffafa; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+.calendar-day:hover { background: var(--pale-rose); }
+.calendar-day.outside-month { background: #f6f4f4; color: #999; }
+.calendar-day.selected { outline: 3px solid var(--rose); outline-offset: -3px; }
+.calendar-day.today .day-number { background: var(--dark-green); color: white; border-radius: 50%; padding: 2px 7px; }
+.day-number { font-size: .9rem; font-weight: bold; align-self: flex-start; }
+.event-chip { display: block; width: 100%; padding: 2px 5px; border-radius: 5px; font-size: .68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-chip.not-started, .legend-dot.not-started { background: #ecd8d9; color: #783c43; }
+.event-chip.in-progress, .legend-dot.in-progress { background: #dfe7c9; color: #3d5729; }
+.event-chip.completed, .legend-dot.completed { background: #d7e5ef; color: #294f68; }
+.more-events { font-size: .68rem; color: var(--grey); }
+.calendar-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; font-size: .8rem; }
+.calendar-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend-dot { width: 12px; height: 12px; display: inline-block; border-radius: 50%; }
+#selected-date-label { color: var(--rose); }
+.assignment-card { padding: 12px; margin-top: 10px; border: 1px solid #eadfe0; border-radius: 12px; background: #fffafa; }
+.assignment-card strong { color: var(--dark-green); }
+.assignment-card p { margin: 3px 0; font-size: .9rem; }
+.assignment-card .status-label { font-weight: bold; color: var(--rose); }
+.delete-button { background: transparent; color: #9e3d46; border: 1px solid #d6a2a6; border-radius: 9px; padding: 5px 10px; cursor: pointer; margin-top: 6px; }
+.delete-button:hover { background: #f7e4e6; }
+.empty-message { color: #666; }
+#assignment-form { display: grid; gap: 8px; }
+#assignment-form label { font-weight: bold; font-size: .9rem; color: var(--dark-green); }
+#assignment-form input, #assignment-form select { width: 100%; border: 1px solid #cdbdc0; border-radius: 10px; padding: 10px; font: inherit; margin-bottom: 8px; background: white; color: var(--grey); }
+.add-button { background: var(--leafy-green); color: white; border: 0; border-radius: 15px; padding: 12px; cursor: pointer; font: inherit; font-weight: bold; }
+.add-button:hover { background: var(--dark-green); }
+nav a[aria-current="page"] { background: var(--dark-green); }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--rose); outline-offset: 2px; }
+@media (max-width: 850px) { .calendar-layout { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { body { padding: 10px; } .calendar-panel, .side-panel { padding: 12px; border-radius: 16px; } .calendar-day { min-height: 70px; padding: 4px 2px; } .event-chip { font-size: .58rem; } .weekday-grid { font-size: .7rem; } .calendar-legend { font-size: .7rem; } }
