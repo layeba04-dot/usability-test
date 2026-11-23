@@ -2,6 +2,7 @@
 :root {
     --rose: #C0737A;
     --light-rose: #E8C6C9;
+    --lighter-rose: #ecd8d9;
     --pale-rose: #efeaeb;
     --pale-green: #c5d3ae;
     --leafy-green: #90A76A;
@@ -174,7 +175,7 @@ footer {
     margin: 0 auto;
     padding: 50px;
 
-    background-color: var(--light-rose);
+    background-color: var(--white);
     border-radius: 90px;
 }
 
@@ -190,15 +191,15 @@ footer {
 }
 
 .create-tracker {
-    background-color: var(--rose);
-    color: var(--white);
+    background-color: var(--pale-rose);
+    color: var(--rose);
     padding: 20px;
     border-radius: 40px;
 }
 
 #tracker-form {
-    background-color: var(--pale-rose);
-    color: var(--dark-green);
+    background-color: var(--lighter-rose);
+    color: var(--rose);
     display: flex;
     border-radius: 40px;
     padding: 20px;
@@ -217,10 +218,27 @@ footer {
     padding: 10px;
     border-radius: 15px;
     border: 2px solid var(--dark-green);
-    background-color: var(--leafy-green);
+    background-color: var(--pale-green);
     color: var(--white);
     font-weight: bold;
     font-size: 1rem;
+}
+
+/* Hover effect */
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: var(--rose);
+    cursor: text;
+}
+
+/* Focus effect */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--rose);
+    box-shadow: 0 0 5px var(--rose);
 }
 
 .tracker-list h3 {
@@ -243,25 +261,36 @@ footer {
 }
 
 .tracker-card {
-    background-color: var(--rose);
-    color: var(--white);
+    background-color: var(--lighter-rose);
+    color: var(--rose);
     padding: 15px;
     border-radius: 20px;
     text-align: center;
     min-width: 0;
 }
 
+.session-title {
+    color: var(--rose);
+    width: 100%;
+    border-radius: 10px;
+    border: 4px solid var(--rose);
+    padding: 5px 18px;
+    display: inline-block;
+    margin: 0 auto 15px;
+}
+
 .tracker-card-heading p {
     margin-bottom: 0px;
 }
 
-.timer-display {
-    background-color: var(--pale-green);
+.tracker-list .timer-display {
+    background-color: var(--light-rose);
     border-radius: 20px;
+    border: 2px solid var(--rose);
     padding: 20px;
     font-size: clamp(1.2rem, 4vw, 2rem);
     font-weight: bold;
-    color: var(--dark-green);
+    color: var(--white);
     margin-bottom: 30px;
     margin-top: 0px;
 
@@ -275,7 +304,7 @@ footer {
     border-radius: 20px;
     padding: 10px;
     font-weight: bold;
-    color: var(--white);
+    color: var(--dark-green);
     margin-bottom: 30px;
     margin-top: 30px;
 
@@ -285,7 +314,7 @@ footer {
 }
 
 .session-history h4 {
-    color: var(--white);
+    color: var(--dark-green);
     font-size: 1rem;
     margin: 0;
 }
@@ -304,11 +333,12 @@ footer {
 }
 
 .session-history li {
-    background-color: var(--leafy-green);
+    background-color: var(--pale-green);
     color: var(--white);
     font-size: 0.8rem;
     padding: 10px 20px;
     border-radius: 15px;
+    border: 2px solid var(--dark-green);
 
     display: flex;
     justify-content: space-between;
@@ -323,9 +353,9 @@ footer {
 }
 
 .timer-button, .view-sessions {
-    background-color: var(--light-rose);
-    color: var(--rose);
-    border: none;
+    background-color: var(--leafy-green);
+    color: var(--white);
+    border: 3px solid var(--dark-green);
     padding: 10px 20px;
     margin: 5px;
     margin-bottom: 0px;
@@ -335,9 +365,9 @@ footer {
 }
 
 .create-tracker-button {
-    background-color: var(--dark-green);
+    background-color: var(--leafy-green);
     color: var(--white);
-    border: 3px solid var(--leafy-green);
+    border: 3px solid var(--dark-green);
     padding: 10px 20px;
     margin: 10px;
     border-radius: 15px;
@@ -354,8 +384,8 @@ footer {
 }
 
 .timer-button:hover, .view-sessions:hover {
-    background-color: var(--dark-green);
-    color: var(--pale-green);
+    background-color: var(--rose);
+    color: var(--white);
     transition: background-color 0.3s ease;
 }
 

@@ -75,6 +75,7 @@ function displayTracker(tracker) {
     trackerCard.classList.add("tracker-card");
 
     const trackerTitle = document.createElement("h4");
+    trackerTitle.classList.add("session-title");
     trackerTitle.textContent = tracker.name;
 
 
