@@ -94,7 +94,7 @@ nav a:hover {
     margin: 0 auto;
     padding: 30px;
 
-    background-color: var(--light-rose);
+    background-color: var(--white);
     border-radius: 90px;
 }
 
@@ -126,7 +126,7 @@ nav a:hover {
 }
 
 .feature-link {
-    background-color: var(--rose);
+    background-color: var(--pale-rose);
     padding: 20px;
     border-radius: 50px;
     text-align: center;
@@ -134,7 +134,7 @@ nav a:hover {
 
 .feature-link p {
     margin-bottom: 0;
-    color: var(--white);
+    color: var(--rose);
 }
 
 /* feature buttons */
@@ -143,9 +143,9 @@ nav a:hover {
     width: 90%;
     margin: 0 auto;
 
-    background-color: var(--light-rose);
+    background-color: var(--leafy-green);
     text-align: center;
-    color: var(--dark-green);
+    color: var(--white);
     text-decoration: none;
     padding: 10px 10px;
     border-radius: 18px;
@@ -154,8 +154,8 @@ nav a:hover {
 }
 
 .home-button:hover {
-    background-color: var(--leafy-green);
-    color: var(--white);
+    background-color: var(--lighter-rose);
+    color: var(--rose);
 }
 
 /* --- Footer --- */
