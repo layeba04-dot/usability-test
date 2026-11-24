@@ -1,0 +1,43 @@
+.progress-report {
+    max-width: 1000px;
+    margin: 32px auto;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 18px;
+}
+
+.report-card {
+    background: var(--white);
+    border: 1px solid var(--light-rose);
+    border-radius: 18px;
+    padding: 22px;
+}
+
+.report-card a {
+    color: #405535;
+}
+
+.report-card select {
+    font: inherit;
+    margin-left: 8px;
+    max-width: 75%;
+}
+
+.report-card progress {
+    width: 100%;
+    height: 18px;
+    accent-color: var(--dark-green);
+}
+
+.report-total {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.upcoming {
+    grid-column: 1 / -1;
+}
