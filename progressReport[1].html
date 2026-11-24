@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Progress Report | Studious Tracker 2.0</title>
+        <link rel="stylesheet" href="hifiPrototype.css">
+        <link rel="stylesheet" href="progressReport.css">
+        <script src="progressReport.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="title-bubble">
+                <h1>Studious Tracker 2.0</h1>
+                <p>Your personal study companion</p>
+            </div>
+
+            <nav aria-label="Main Navigation">
+                <ul> 
+                    <li><a href="hifiPrototype.html">Home</a></li>
+                    <li><a href="deadlineTracker.html">Deadlines</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="studyTracker.html">Study Tracker</a></li>
+                    <li><a href="progressReport.html" aria-current="page">Progress Report</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="progress-report">
+            <h2>Progress Report</h2>
+            <div class="report-grid">
+                <section class="report-card" aria-labelledby="deadlines-heading">
+                    <h3 id="deadlines-heading">Deadline completion</h3>
+                    <label for="report-course">Course</label>
+                    <select id="report-course"><option value="">All courses</option></select>
+                    <p id="completion-summary" aria-live="polite"></p>
+                    <progress id="completion-bar" aria-label="Deadline completion" max="100" value="0"></progress>
+                    <p><a href="deadlineTracker.html">Manage deadlines</a></p>
+                </section>
+                <section class="report-card" aria-labelledby="study-heading">
+                    <h3 id="study-heading">Study time</h3>
+                    <p class="report-total" id="study-total"></p>
+                    <p id="session-count"></p>
+                    <p><a href="studyTracker.html">Open Study Tracker</a></p>
+                </section>
+                <section class="report-card upcoming" aria-labelledby="upcoming-heading">
+                    <h3 id="upcoming-heading">Upcoming deadlines</h3>
+                    <p>Unfinished items due today or in the next seven days.</p>
+                    <ul id="upcoming-list"></ul>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>
+                Created by Studious 5 &copy; 2026 Studious Tracker 2.0. All rights reserved.
+            </p>
+        </footer>
+    </body>
+</html>
