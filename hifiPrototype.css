@@ -261,6 +261,9 @@ textarea:focus {
 }
 
 .tracker-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-color: var(--lighter-rose);
     color: var(--rose);
     padding: 15px;
@@ -335,7 +338,7 @@ textarea:focus {
 
 .session-history li {
     background-color: var(--pale-green);
-    color: var(--white);
+    color: var(--dark-green);
     font-size: 0.8rem;
     padding: 10px 20px;
     border-radius: 15px;
@@ -394,6 +397,7 @@ textarea:focus {
     cursor: pointer;
     font-weight: bold;
     align-self: center;
+    margin-top: auto;
 }
 
 .delete-button:hover {
