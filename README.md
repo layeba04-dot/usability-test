@@ -1,4 +1,4 @@
-# usability-test
+# Studious Tracker 2.0
 
 # Contributors
 
