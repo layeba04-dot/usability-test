@@ -8,11 +8,48 @@ const trackerNameInput = document.getElementById("tracker-name");
 const timerTypeInput = document.getElementById("timer-type");
 const timerDurationInput = document.getElementById("timer-duration");
 
-let trackers = []; //array to store all trackers
+// Retrieve previously saved trackers from localStorage
+const savedTrackers = localStorage.getItem("trackers");
+
+// Load saved trackers, or start with an empty array
+let trackers = savedTrackers ? JSON.parse(savedTrackers) : [];
+
+// Convert saved session dates back into Date objects
+trackers.forEach(function(tracker) {
+    tracker.sessions.forEach(function(session) {
+        session.date = new Date(session.date);
+    });
+});
+
+
+function saveTrackers() {
+    localStorage.setItem("trackers", JSON.stringify(trackers));
+}
+
+function confirmDialog(title, text, okLabel, onOk) {
+    const dialog = document.getElementById("confirm-dialog");
+
+    document.getElementById("confirm-title").textContent = title;
+    document.getElementById("confirm-text").textContent = text;
+    document.getElementById("confirm-ok").textContent = okLabel;
+
+    document.getElementById("confirm-ok").onclick = function() {
+        dialog.close();
+        onOk();
+    };
+
+    document.getElementById("confirm-cancel").onclick = function() {
+        dialog.close();
+    };
+
+    dialog.showModal();
+}
 
 trackerForm.addEventListener("submit", function(event) {
     //prevent page refresh when submitting
     event.preventDefault();
+
+    timerDurationInput.required = timerTypeInput.value === "countdown";
 
     //make duration required when countdown selected
     if (timerTypeInput.value === "countdown" && timerDurationInput.value === "") {
@@ -27,7 +64,9 @@ trackerForm.addEventListener("submit", function(event) {
         sessions: [] //empty array to store future study sessions
     };
 
-    trackers.push(tracker); //adds made tracker to tracker array
+    trackers.push(tracker);
+
+    saveTrackers(); //save updated tracker array
 
     displayTracker(tracker);
 
@@ -35,15 +74,21 @@ trackerForm.addEventListener("submit", function(event) {
 });
 
 timerTypeInput.addEventListener("change", function() {
-    if (timerTypeInput.value === "stopwatch") {
-        timerDurationInput.disabled = true;
-        timerDurationInput.value = "";
+
+    const durationContainer = document.getElementById("duration-container");
+
+    if (timerTypeInput.value === "countdown") {
+        durationContainer.style.display = "block";
+        timerDurationInput.required = true;
     } else {
-        timerDurationInput.disabled = false;
+        durationContainer.style.display = "none";
+        timerDurationInput.value = "";
+        timerDurationInput.required = false;
     }
+
 });
 
-
+timerTypeInput.dispatchEvent(new Event("change"));
 
 function playCompleteSound() {
     const audioContext = new AudioContext();
@@ -69,6 +114,7 @@ function playCompleteSound() {
     });
 }
 
+
 function displayTracker(tracker) {
 
     const trackerCard = document.createElement("div");
@@ -78,6 +124,40 @@ function displayTracker(tracker) {
     trackerTitle.classList.add("session-title");
     trackerTitle.textContent = tracker.name;
 
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-button");
+
+    deleteButton.addEventListener("click", function() {
+
+        confirmDialog(
+            "Delete Tracker?",
+            "Are you sure you want to delete this tracker and its session history?",
+            "Delete",
+            function() {
+
+                // Stop the timer if it's running
+                if (timerInterval !== null) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+
+                // Remove tracker from array
+                const trackerIndex = trackers.indexOf(tracker);
+
+                if (trackerIndex !== -1) {
+                    trackers.splice(trackerIndex, 1);
+                }
+
+                // Update localStorage
+                saveTrackers();
+
+                // Remove tracker from webpage
+                trackerCard.remove();
+            }
+        );
+
+    });
 
     const trackerType = document.createElement("p");
     trackerType.textContent = tracker.type === "stopwatch" ? "Stopwatch" : "Countdown Timer";
@@ -107,17 +187,21 @@ function displayTracker(tracker) {
     let startTime = null;
 
     function completeCountdown() {
-        const confirmed = confirm("Your study session is complete! Would you like to log this session?");
+        confirmDialog(
+            "Session Complete!",
+            "Your study session is complete! Would you like to log this session?",
+            "Log Session",
+            function() {
+                const session = {
+                    duration: tracker.duration * 60,
+                    date: new Date()
+                };
 
-        if (confirmed) {
-            const session = {
-                duration: tracker.duration * 60,
-                date: new Date()
-            };
-
-            tracker.sessions.push(session);
-            displaySession(session, sessionList);
-        }
+                tracker.sessions.push(session);
+                saveTrackers();
+                displaySession(session, sessionList);
+            }
+        );
     }
 
     startButton.addEventListener("click", function() {
@@ -182,23 +266,10 @@ function displayTracker(tracker) {
 
         const elapsedTime = Date.now() - startTime;
         const totalSeconds = Math.floor(elapsedTime / 1000);
-        
-        const confirmed = confirm("would you like to log this study session?");
-        
-        if (confirmed) {
-            const session = {
-                duration: totalSeconds,
-                date: new Date()
-            };
-
-            tracker.sessions.push(session);
-            console.log(tracker.sessions);
-
-            displaySession(session, sessionList);
-        }
 
         timerInterval = null;
 
+        // Reset timer display
         if (tracker.type === "stopwatch") {
             timerDisplay.textContent = "00:00:00";
         } else {
@@ -213,6 +284,22 @@ function displayTracker(tracker) {
                 String(minutes).padStart(2, "0") + ":" +
                 String(seconds).padStart(2, "0");
         }
+
+        confirmDialog(
+            "Log Study Session?",
+            "Would you like to log this study session?",
+            "Log Session",
+            function() {
+                const session = {
+                    duration: totalSeconds,
+                    date: new Date()
+                };
+
+                tracker.sessions.push(session);
+                saveTrackers();
+                displaySession(session, sessionList);
+            }
+        );
     });
 
     const sessionHistory = document.createElement("div");
@@ -236,16 +323,16 @@ function displayTracker(tracker) {
         const seconds = session.duration % 60;
 
         if (hours > 0) {
-    sessionDuration.textContent = hours + (hours === 1 ? " hour" : " hours");
+        sessionDuration.textContent = hours + (hours === 1 ? " hour" : " hours");
 
-    if (minutes > 0) {
-        sessionDuration.textContent += ", " + minutes + (minutes === 1 ? " minute" : " minutes");
-    }
-    } else if (minutes > 0) {
-        sessionDuration.textContent = minutes + (minutes === 1 ? " minute" : " minutes");
-    } else {
-        sessionDuration.textContent = "Less than a minute";
-    }
+        if (minutes > 0) {
+            sessionDuration.textContent += ", " + minutes + (minutes === 1 ? " minute" : " minutes");
+        }
+        } else if (minutes > 0) {
+            sessionDuration.textContent = minutes + (minutes === 1 ? " minute" : " minutes");
+        } else {
+            sessionDuration.textContent = "Less than a minute";
+        }
 
         const sessionDate = document.createElement("p");
         sessionDate.textContent = session.date.toLocaleDateString("en-GB", {day: "numeric", month: "long", year: "numeric"});
@@ -256,6 +343,11 @@ function displayTracker(tracker) {
         container.appendChild(sessionEntry);
     }
 
+    // Display previously saved session history
+    tracker.sessions.forEach(function(session) {
+        displaySession(session, sessionList);
+    });
+
     
     trackerCard.appendChild(trackerTitle);
     trackerCard.appendChild(trackerType);
@@ -263,9 +355,14 @@ function displayTracker(tracker) {
     trackerCard.appendChild(startButton);
     trackerCard.appendChild(stopButton);
     trackerCard.appendChild(sessionHistory);
-
     trackerContainer.appendChild(trackerCard);
+    trackerCard.appendChild(deleteButton);
 }
+
+// Display all previously saved trackers when the page loads
+trackers.forEach(function(tracker) {
+    displayTracker(tracker);
+});
 
 
 

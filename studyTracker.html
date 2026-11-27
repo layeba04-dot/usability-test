@@ -56,7 +56,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div id="duration-container">
                             <label for="timer-duration">Study duration (minutes)</label>
                             <input
                                 type="number"
@@ -77,51 +77,23 @@
                     </div>
 
                     <div id="trackers-container">
-                        <!-- Trackers will be dynamically added here -->
-                        <!-- Example of a tracker card -->
-                        <!--<article class="tracker-card">
-                            <div class="tracker-card-heading">
-                                <h4>Solo Study Sessions</h4>
-                                <p>Stopwatch</p>
-                            </div>
-
-                            <div class="timer-display">
-                                <p>00:00:00</p>
-                            </div>
-
-                            <div class="timer-controls">
-                                <button type="button" class="timer-button">Start</button>
-                                <button type="button" class="timer-button">End Session</button>
-                            </div>
-
-                            <div class="session-history">
-                                <h5>Recent Sessions</h5>
-                                <ul>
-                                    <li>
-                                        <span>Nov 17, 2026</span>
-                                        <span>45 minutes</span>
-                                    </li>
-
-                                    <li>
-                                        <span>Nov 16, 2026</span>
-                                        <span>1 hour 20 minutes</span>
-                                    </li>
-
-                                    <li>
-                                        <span>Nov 15, 2026</span>
-                                        <span>30 minutes</span>
-                                    </li>
-                                </ul>
-
-                                <button type="button" class="view-sessions">View All Sessions</button>
-                            </div>
-                        </article>-->
+                        <!-- will be added by user-->
 
                     </div>
                 </section>
 
             </section>
         </main>
+
+        <dialog id="confirm-dialog" class="confirm-dialog">
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-text">Are you sure?</p>
+
+            <div class="confirm-actions">
+                <button type="button" id="confirm-cancel">Cancel</button>
+                <button type="button" id="confirm-ok">Delete</button>
+            </div>
+        </dialog>
 
         <footer>
             <p>

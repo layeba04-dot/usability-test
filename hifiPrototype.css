@@ -384,9 +384,73 @@ textarea:focus {
     transition: background-color 0.3s ease;
 }
 
+.delete-button {
+    background-color: var(--light-rose);
+    color: var(--rose);
+    width: 100%;
+    border: 3px solid var(--rose);
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+}
+
+.delete-button:hover {
+    background-color: var(--rose);
+    color: var(--white);
+}
+
 .timer-button:hover, .view-sessions:hover {
     background-color: var(--rose);
     color: var(--white);
+    transition: background-color 0.3s ease;
+}
+
+.confirm-dialog {
+    background-color: var(--pale-rose);
+    color: var(--dark-green);
+    border: 3px solid var(--rose);
+    border-radius: 25px;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    margin: auto;
+}
+
+.confirm-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirm-dialog h3 {
+    color: var(--dark-green);
+    margin-top: 0;
+}
+
+.confirm-dialog p {
+    color: var(--grey);
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.confirm-actions button {
+    background-color: var(--leafy-green);
+    color: var(--white);
+    border: 2px solid var(--dark-green);
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.confirm-actions button:hover {
+    background-color: var(--rose);
     transition: background-color 0.3s ease;
 }
 
